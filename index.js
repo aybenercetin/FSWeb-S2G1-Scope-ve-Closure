@@ -18,7 +18,10 @@
 function ilkiniDon(stringArray, callback) {
   return callback(stringArray[0])
 }
-console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin+metin}));
+const ornekGorev = ilkiniDon(["as", "sa"], function (metin){
+  return metin + metin;
+});
+console.log('örnek görev:', ornekGorev);
 
 // Başlangıç Challenge'ı Sonu
 
@@ -30,10 +33,11 @@ console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin
   Aşağıdaki skor1 ve skor2 kodlarını inceleyiniz ve aşağıdaki soruları altına not alarak cevaplayın
   
   1. skor1 ve skor2 arasındaki fark nedir?
-  
+  her ikisi de bir skor değerini artırmak için kullanılıyor. ancak skor1 skor değişkenini kapsayan bir fonksiyon içinde bulunduruyor, skor2 ise skor değerini global bir değişken olarak kullanıyor herhangi bir fonksiyonun içinde kapanmış durumda değil.
   2. Hangisi bir closure kullanmaktadır? Nasıl tarif edebilirsin? (yarınki derste öğreneceksin :) )
-  
+   "skor1" bir closure kullanmaktadır. Closure kullanarak bir iç fonksiyonun dış fonksiyonunun kapsamındaki değişkenlere erişebiliriz."skorArtirici" fonksiyonu içinde tanımlanan "skor" değişkenini kapsar ve iç fonksiyon olan "skorGuncelle" bu kapsamı kullanarak "skor" değişkenimizi artırır. bu yüzden "skorguncelle" fonksiyonu "skor1"in parçası olan bir closuredur.
   3. Hangi durumda skor1 tercih edilebilir? Hangi durumda skor2 daha mantıklıdır?
+  skor1 de closure kullandığımız için dışarıdan bir erişime izin vermez. değişkenimizi istenmeyen değişikliklerden korumak istiyorsak kullanabiliriz. skor2 ise global bir değişken olduğu için dışarıdan kolay erişilebilir. basit uygulamalarda kullanabiliriz.
 */
 
 // skor1 kodları
@@ -64,11 +68,14 @@ Aşağıdaki takimSkoru() fonksiyonununda aşağıdakileri yapınız:
 Not: Bu fonskiyon, aşağıdaki diğer görevler için de bir callback fonksiyonu olarak da kullanılacak
 */
 
-function takimSkoru(/*Kodunuzu buraya yazınız*/){
-    /*Kodunuzu buraya yazınız*/
+function takimSkoru(){
+    const minSkor = 10;
+    const maxSkor = 25;
+    const rastgeleSkor = Math.floor(Math.random() * (maxSkor - minSkor + 1));
+    return rastgeleSkor;
 }
-
-
+const skor = takimSkoru();
+console.log("Rastgele Skor :" , skor);
 
 
 /* Görev 3: macSonucu() 
@@ -86,9 +93,21 @@ Aşağıdaki macSonucu() fonksiyonununda aşağıdakileri yapınız:
 }
 */ 
 
-function macSonucu(/*Kodunuzu buraya yazınız*/){
-  /*Kodunuzu buraya yazınız*/
+function macSonucu(takimSkoru, cevreSayisi){
+  const sonuc = {
+    "EvSahibi" : 0,
+    "KonukTakim" : 0
+  };
+  for (let i = 1; i <= cevreSayisi; i++){
+    const evSahibiSkor = takimSkoru();
+    const konukTakimSkor = takimSkoru();
+    sonuc ["EvSahibi"] += evSahibiSkor;
+    sonuc ["KonukTakim"] += konukTakimSkor;
+  }
+  return sonuc
 }
+const macSonuclari = macSonucu(takimSkoru, 4);
+console.log(macSonuclari);
 
 
 
@@ -109,11 +128,16 @@ Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
   */
 
 
-function periyotSkoru(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
-
+function periyotSkoru(takimSkoru) {
+  const evSahibiSkor = takimSkoru();
+  const konukTakimSkor = takimSkoru();
+return {
+  "EvSahibi": evSahibiSkor,
+  "KonukTakim": konukTakimSkor
 }
-
+}
+const skorlar = periyotSkoru(takimSkoru: () ): { EvSahibi:g 18; KonukTakim: 12; };
+console.log(skorlar);
 
 /* Zorlayıcı Görev 5: skorTabelasi() 
 Aşağıdaki skorTabelasi() fonksiyonunu kullanarak aşağıdakileri yapınız:
